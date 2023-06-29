@@ -1,20 +1,26 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
+package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.Cart;
 
 /**
  *
- * @author ADMIN
+ * @author PC
  */
-public class NewServlet extends HttpServlet {
+public class UpdateCheckout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,17 +34,23 @@ public class NewServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        try (PrintWriter out = response.getWriter()) {
+            int id = Integer.parseInt(request.getParameter("productid"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            
+            HttpSession session = request.getSession();
+            Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
+            if (carts == null) {
+                carts = new LinkedHashMap<>();
+            }
+            if(carts.containsKey(id)){
+                carts.get(id).setQuantity(quantity);
+            }
+            if(carts.get(id).getQuantity()<=0){
+                carts.remove(id);
+            }
+            session.setAttribute("carst", carts);
+            response.sendRedirect("Checkout");
         }
     }
 

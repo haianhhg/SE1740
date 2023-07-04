@@ -21,7 +21,7 @@ import model.Product;
 
 /**
  *
- * @author PC
+ * @author PC 
  */
 public class AddProduct extends HttpServlet {
 
@@ -42,7 +42,7 @@ public class AddProduct extends HttpServlet {
             Object objacc = session.getAttribute("account");
             if (objacc != null) {
                 Account acc = (Account) objacc;
-                if (acc.getRollid() == 2) {
+                if (acc.getRoleid() == 2) {
                     request.getRequestDispatcher("addProduct.jsp").forward(request, response);
                 }  
                 

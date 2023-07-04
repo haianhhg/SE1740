@@ -19,7 +19,7 @@ import model.Product;
 
 /**
  *
- * @author PC
+ * @author PC 
  */
 public class ManagerController extends HttpServlet {
 
@@ -41,7 +41,7 @@ public class ManagerController extends HttpServlet {
             Object objacc = session.getAttribute("account");
             if (objacc != null) {
                 Account acc = (Account) objacc;
-                if (acc.getRollid() == 2) {
+                if (acc.getRoleid() == 2) {
                     ProductDAO p = new ProductDAO();
                     List<Product> lst = p.getallPro();
                     request.setAttribute("ListP", lst);

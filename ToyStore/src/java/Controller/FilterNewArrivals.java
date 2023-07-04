@@ -17,7 +17,7 @@ import model.Product;
 
 /**
  *
- * @author PC
+ * @author PC 
  */
 public class FilterNewArrivals extends HttpServlet {
 

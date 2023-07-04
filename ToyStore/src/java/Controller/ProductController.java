@@ -22,7 +22,7 @@ import model.Product;
 
 /**
  *
- * @author PC
+ * @author PC 
  */
 public class ProductController extends HttpServlet {
 
@@ -70,7 +70,7 @@ public class ProductController extends HttpServlet {
         if(objacc!=null){
             Account acc = (Account) objacc;
             request.setAttribute("disname", acc.getDisplayname());
-            request.setAttribute("roll", acc.getRollid());
+            request.setAttribute("roll", acc.getRoleid());
         }
         request.setAttribute("page", page);
         request.getSession().setAttribute("URLHistory", "productcontrol");

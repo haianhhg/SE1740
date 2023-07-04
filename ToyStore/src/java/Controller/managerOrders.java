@@ -21,7 +21,7 @@ import model.Product;
 
 /**
  *
- * @author PC
+ * @author PC 
  */
 public class managerOrders extends HttpServlet {
 
@@ -43,11 +43,11 @@ public class managerOrders extends HttpServlet {
             Object objacc = session.getAttribute("account");
             if (objacc != null) {
                 Account acc = (Account) objacc;
-                if (acc.getRollid() == 2) {
+                if (acc.getRoleid() == 2) {
                     OrderDAO order = new OrderDAO();
                     List<Order> listo = order.getallorder();
                     request.setAttribute("ListO", listo);
-                    request.getRequestDispatcher("managerOrders.jsp").forward(request, response);
+                    request.getRequestDispatcher("oders.jsp").forward(request, response);
                 }  
                 
             } 

@@ -16,7 +16,7 @@ import model.Account;
 
 /**
  *
- * @author PC
+ * @author PC 
  */
 public class CreateAccountController extends HttpServlet {
 
@@ -34,7 +34,7 @@ public class CreateAccountController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            request.getRequestDispatcher("createAC.jsp").forward(request, response);
+            request.getRequestDispatcher("singup.jsp").forward(request, response);
         }
     }
 

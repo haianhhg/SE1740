@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author PC
+ * @author PC 
  */
 public class ThankController extends HttpServlet {
 

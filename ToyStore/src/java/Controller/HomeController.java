@@ -21,7 +21,7 @@ import model.Product;
 
 /**
  *
- * @author PC
+ * @author PC 
  */
 public class HomeController extends HttpServlet {
 
@@ -38,17 +38,17 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         ProductDAO dao = new ProductDAO();
-        List<Product> listPro = dao.getProbyCategoryid(6, 7);
+        List<Product> listPro = dao.getProbyCategoryid(1, 2);
         request.setAttribute("ListP", listPro);
         HttpSession session = request.getSession();
         Object objacc = session.getAttribute("account");
         if(objacc!=null){
             Account acc = (Account) objacc;
             request.setAttribute("disname", acc.getDisplayname());
-            request.setAttribute("roll", acc.getRollid());
+            request.setAttribute("roll", acc.getRoleid());
         }
         request.getSession().setAttribute("URLHistory", "home");
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

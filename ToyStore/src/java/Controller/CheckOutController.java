@@ -19,7 +19,7 @@ import model.Cart;
 
 /**
  *
- * @author PC
+ * @author PC 
  */
 public class CheckOutController extends HttpServlet {
 
@@ -55,7 +55,7 @@ public class CheckOutController extends HttpServlet {
             }
             request.setAttribute("Total", totalMoney);
                 request.setAttribute("carts", carts);
-                request.getRequestDispatcher("checkout.jsp").forward(request, response);
+                request.getRequestDispatcher("orders.jsp").forward(request, response);
             }
         }
 

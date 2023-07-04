@@ -16,7 +16,7 @@ import model.Product;
 
 /**
  *
- * @author PC
+ * @author PC 
  */
 public class ItemServlet extends HttpServlet {
 
@@ -39,7 +39,7 @@ public class ItemServlet extends HttpServlet {
             Product product = pro.getOneProbyID(ProductID);
             request.setAttribute("product", product);
             request.getSession().setAttribute("URLHistory", "item?Product="+product.getId());
-            request.getRequestDispatcher("item.jsp").forward(request, response);
+            request.getRequestDispatcher("detail.jsp").forward(request, response);
             
         }
     }

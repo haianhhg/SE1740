@@ -19,7 +19,7 @@ import model.Product;
 
 /**
  *
- * @author PC
+ * @author PC 
  */
 public class FilterCategory extends HttpServlet {
 

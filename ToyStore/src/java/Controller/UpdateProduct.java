@@ -16,7 +16,7 @@ import model.Product;
 
 /**
  *
- * @author PC
+ * @author PC 
  */
 public class UpdateProduct extends HttpServlet {
 

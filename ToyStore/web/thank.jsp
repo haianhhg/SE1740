@@ -83,51 +83,10 @@
             </div>
         </section>
         <!-- end inner page section -->
-         <section class="py-5 px-4 px-lg-5 " style="padding-top:7rem !important">
-            <div class="container" style="min-height: 500px">
-                <table class="table  table-hover">
-                    <c:if test="${sessionScope.carts.size()==0}">
-                        <h1>List is Empty</h1>
-                    </c:if>
-                    <c:if test="${sessionScope.carts.size()!=0}">
-                        <thead>
-                            <tr>
-                                <th scope="col">Product</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">ToTal Price</th>
-                                <th scope="col">Action</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${carts}" var="C">
-                            <form action="UpdateCheckout">
-                                <tr> 
-                                <input type="hidden" name="productid" value="${C.value.product.id}">
-                                    <td>${C.value.product.id}</td>
-                                    <td><img src="${C.value.product.imageURL}" width="50"></td>
-                                    <td>${C.value.product.name}</td>
-                                    <td>${C.value.product.price} $</td>
-                                    <td><input onchange="this.form.submit()" type="number" value="${C.value.quantity}" name="quantity"></td>
-                                    <td>${C.value.product.price*C.value.quantity} $</td>
-                                    <td><a class="btn btn-outline-danger" href="DeleteCart?productid=${C.value.product.id}"><i class="bi bi-trash"></i>Delete</a></td>
-                                </tr>
-                            </form>
-
-                        </c:forEach>
-
-                        </tbody>
-                    
-                    </c:if>
-                </table>
-                <h3>TotalMoney: $${Total}</h3>
-                <a class="btn btn-success" href="payment" style="border-color: #fe4c50;background-color: #fe4c50">Payment</a>
-                
-            </div>
-        </section>
+        <div style="margin-top: 200px;text-align: center">
+                            <h1 >Thank you!</h1>
+        <a href="home" style="text-align: center">Continue Shopping</a>
+                            </div>
 
 
 
@@ -151,7 +110,7 @@
                                 <a href="">
                                     <i class="fa fa-phone" aria-hidden="true"></i>
                                     <span>
-                                         Call +84 0886608682
+                                        Call +84 886608682
                                     </span>
                                 </a>
                                 <a href="">

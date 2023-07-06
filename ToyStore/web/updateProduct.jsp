@@ -14,7 +14,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <link rel="shortcut icon" href="images/favicon.png" type="">
-        <title>Famms - Fashion HTML Template</title>
+        <title>ToyStore</title>
         <!-- bootstrap core css -->
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
         <!-- font awesome style -->
@@ -24,13 +24,10 @@
         <!-- responsive style -->
         <link href="css/responsive.css" rel="stylesheet" />
     </head>
-
-    <body>
-
-        <!-- Header -->
-        <div class="hero_area" style="min-height: 0">
-            <!-- header section strats -->
-            <header class="header_section">
+    <body class="sub_page">
+        <div class="hero_area">
+           <!-- header section strats -->
+          <header class="header_section">
             <div class="container">
                <nav class="navbar navbar-expand-lg custom_nav-container ">
                    <a class="navbar-brand" href="home" style="color: #002c3e;text-transform: uppercase;font-weight: 700;">TOYSTORE</a>
@@ -43,25 +40,26 @@
                            <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
                         </li>
                        
-                        <li class="nav-item">
-                           <a class="nav-link" href="productcontrol">Products</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="blog_list.html">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="contact.html">Contact</a>
-                        </li>
                         <li class="nav-item active">
-                           <a class="nav-link" href="#">
-                             <i class="fa fa-shopping-cart"></i>
-                           </a>
+                           <a class="nav-link" href="manager">List Product</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="logout">
-                             <i class="fa fa-user"></i>
-                           </a>
+                           <a class="nav-link" href="addProduct">Add Product</a>
                         </li>
+                          <c:if test="${account!=null}">
+                                    <li class="nav-item">
+
+                                        <a href="logout" class="nav-link" style="color:black; font-weight: bold">Logout</a>
+
+                                    </li>
+                                </c:if>
+                                <c:if test="${account==null}">    
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="login">
+                                            <i class="fa fa-user"></i>
+                                        </a>
+                                    </li>
+                                </c:if>
                         
                      </ul>
                   </div>
@@ -70,68 +68,53 @@
          </header>
             <!-- end header section -->
         </div>
-        <!-- inner page section -->
+       <!-- inner page section -->
         <section class="inner_page_head">
             <div class="container_fuild">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="full">
-                            <h3>Carts</h3>
+                            <h3>Manager Product</h3>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         <!-- end inner page section -->
-         <section class="py-5 px-4 px-lg-5 " style="padding-top:7rem !important">
-            <div class="container" style="min-height: 500px">
-                <table class="table  table-hover">
-                    <c:if test="${sessionScope.carts.size()==0}">
-                        <h1>List is Empty</h1>
-                    </c:if>
-                    <c:if test="${sessionScope.carts.size()!=0}">
-                        <thead>
-                            <tr>
-                                <th scope="col">Product</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">ToTal Price</th>
-                                <th scope="col">Action</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${carts}" var="C">
-                            <form action="UpdateCheckout">
-                                <tr> 
-                                <input type="hidden" name="productid" value="${C.value.product.id}">
-                                    <td>${C.value.product.id}</td>
-                                    <td><img src="${C.value.product.imageURL}" width="50"></td>
-                                    <td>${C.value.product.name}</td>
-                                    <td>${C.value.product.price} $</td>
-                                    <td><input onchange="this.form.submit()" type="number" value="${C.value.quantity}" name="quantity"></td>
-                                    <td>${C.value.product.price*C.value.quantity} $</td>
-                                    <td><a class="btn btn-outline-danger" href="DeleteCart?productid=${C.value.product.id}"><i class="bi bi-trash"></i>Delete</a></td>
-                                </tr>
-                            </form>
-
-                        </c:forEach>
-
-                        </tbody>
-                    
-                    </c:if>
-                </table>
-                <h3>TotalMoney: $${Total}</h3>
-                <a class="btn btn-success" href="payment" style="border-color: #fe4c50;background-color: #fe4c50">Payment</a>
+         <section class="py-5 px-4 px-lg-5 " style="padding-top:7rem !important;min-height: 500px">                                                              
+        <form action="UpdateProduct" method="POST">
+            <table>
+                <tr>
+                    <td>ID:</td><td>${product.id}<input type="hidden" name="id" value="${product.id}"/></td>
+                </tr>
+                <tr>
+                    <td>Name:</td><td><input type="text" name="name" value="${product.name}"/></td>
+                </tr>
+                <tr>
+                    <td>Price:</td><td><input type="text" name="price" value="${product.price}"/></td>
+                </tr>
+                <tr>
+                    <td>Quantity:</td><td><input type="text" name="quantity" value="${product.quantity}"/></td>
+                </tr>
+                <tr>
+                    <td>Description:</td><td><input type="text" name="des" value="${product.description}"/></td>
+                </tr>
+                <tr>
+                    <td>ImageURL:</td><td><input type="text" name="image" value="${product.imageURL}"/></td>
+                </tr>
+                <tr>
+                    <td>Created_Date:</td><td><input type="date" name="date" value="${product.createdDate}"/></td>
+                </tr>
+                <tr>
+                    <td>CategoryID:</td><td><input type="text" name="categoryid" value="${product.categoryid}"/></td>
+                </tr>
                 
-            </div>
+                
+                
+                <tr><td><input type="submit" value="Update"/></td></tr>
+            </table>
+        </form>
         </section>
-
-
-
-
         <!-- footer section -->
         <footer class="footer_section">
             <div class="container">
@@ -151,7 +134,7 @@
                                 <a href="">
                                     <i class="fa fa-phone" aria-hidden="true"></i>
                                     <span>
-                                         Call +84 0886608682
+                                        Call +84 0886608682
                                     </span>
                                 </a>
                                 <a href="">
@@ -218,5 +201,5 @@
         <!-- custom js -->
         <script src="js/custom.js"></script>
     </body>
-
 </html>
+

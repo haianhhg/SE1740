@@ -29,45 +29,59 @@
 
         <!-- Header -->
         <div class="hero_area" style="min-height: 0">
-            <!-- header section strats -->
+           <!-- header section strats -->
             <header class="header_section">
-            <div class="container">
-               <nav class="navbar navbar-expand-lg custom_nav-container ">
-                   <a class="navbar-brand" href="home" style="color: #002c3e;text-transform: uppercase;font-weight: 700;">TOYSTORE</a>
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class=""> </span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                           <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                       
-                        <li class="nav-item active">
-                           <a class="nav-link" href="productcontrol">Products</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="blog_list.html">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="contact.html">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="#">
-                             <i class="fa fa-shopping-cart"></i>
-                           </a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="logout">
-                             <i class="fa fa-user"></i>
-                           </a>
-                        </li>
-                        
-                     </ul>
-                  </div>
-               </nav>
-            </div>
-         </header>
+                <div class="container">
+                    <nav class="navbar navbar-expand-lg custom_nav-container ">
+                        <a class="navbar-brand" href="home" style="color: #002c3e;text-transform: uppercase;font-weight: 700;">TOYSTORE</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class=""> </span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
+                                </li>
+
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="productcontrol">Products</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="blog.jsp">Blog</a>
+                                </li>
+                                <c:if test="${role==2}">
+                                    <li class="nav-item">
+                                        <a href="manager" class="nav-link">Manager</a>
+                                    </li>
+                                </c:if>
+
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="Checkout">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </a>
+                                </li>
+
+                                <c:if test="${account!=null}">
+                                    <li class="nav-item">
+
+                                        <a href="logout" class="nav-link" style="color:black; font-weight: bold">Logout</a>
+
+                                    </li>
+                                </c:if>
+                                <c:if test="${account==null}">    
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="login">
+                                            <i class="fa fa-user"></i>
+                                        </a>
+                                    </li>
+                                </c:if>
+
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </header>
             <!-- end header section -->
         </div>
         <!-- inner page section -->
@@ -133,8 +147,7 @@
 
                             </div>
                         </section>
-                        <div class="add-card"><a class="add-to-card" href=></a></div>
-                        <div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
+                       
                     </div>
                 </div>
             </div>
@@ -163,13 +176,13 @@
                                 <a href="">
                                     <i class="fa fa-phone" aria-hidden="true"></i>
                                     <span>
-                                        Call +01 1234567890
+                                         Call +84 0886608682
                                     </span>
                                 </a>
                                 <a href="">
                                     <i class="fa fa-envelope" aria-hidden="true"></i>
                                     <span>
-                                        demo@gmail.com
+                                        hoanghaianh252@gmail.com
                                     </span>
                                 </a>
                             </div>

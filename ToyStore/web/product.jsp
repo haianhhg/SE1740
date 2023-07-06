@@ -27,47 +27,61 @@
     <body class="sub_page">
         <div class="hero_area">
             <!-- header section strats -->
-          <header class="header_section">
-            <div class="container">
-               <nav class="navbar navbar-expand-lg custom_nav-container ">
-                   <a class="navbar-brand" href="home" style="color: #002c3e;text-transform: uppercase;font-weight: 700;">TOYSTORE</a>
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class=""> </span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                           <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                       
-                        <li class="nav-item active">
-                           <a class="nav-link" href="productcontrol">Products</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="blog_list.html">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="contact.html">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="#">
-                             <i class="fa fa-shopping-cart"></i>
-                           </a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="logout">
-                             <i class="fa fa-user"></i>
-                           </a>
-                        </li>
-                        
-                     </ul>
-                  </div>
-               </nav>
-            </div>
-         </header>
+            <header class="header_section">
+                <div class="container">
+                    <nav class="navbar navbar-expand-lg custom_nav-container ">
+                        <a class="navbar-brand" href="home" style="color: #002c3e;text-transform: uppercase;font-weight: 700;">TOYSTORE</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class=""> </span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
+                                </li>
+
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="productcontrol">Products</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="blog.jsp">Blog</a>
+                                </li>
+                                <c:if test="${role==2}">
+                                    <li class="nav-item">
+                                        <a href="manager" class="nav-link">Manager</a>
+                                    </li>
+                                </c:if>
+
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="Checkout">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </a>
+                                </li>
+
+                                <c:if test="${account!=null}">
+                                    <li class="nav-item">
+
+                                        <a href="logout" class="nav-link" style="color:black; font-weight: bold">Logout</a>
+
+                                    </li>
+                                </c:if>
+                                <c:if test="${account==null}">    
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="login">
+                                            <i class="fa fa-user"></i>
+                                        </a>
+                                    </li>
+                                </c:if>
+
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </header>
             <!-- end header section -->
         </div>
-      
+
         <!-- product section -->
         <section class="product_section layout_padding">
             <div class="container">
@@ -84,7 +98,7 @@
                             </div>
                             <ul class="sidebar_categories" style="padding: 0 20px 0 0">
                                 <c:forEach items="${ListC}" var="c">
-                                    <li class="list-group-item"><a href="filter-category?id=${c.id}" style="color:black">${c.name}</a></li>
+                                    <li class="list-group-item "><a  href="filter-category?id=${c.id}"  style="color:black">${c.name}</a></li>
                                     </c:forEach>
                             </ul>
                         </div>
@@ -99,8 +113,8 @@
                                             <a href="item?Product=${P.id}" class="option1">
                                                 See More
                                             </a>
-                                            <a href="" class="option2">
-                                                Buy Now
+                                            <a href="Cart?ProductID=${P.id}" class="option2">
+                                                Add to Cart
                                             </a>
                                         </div>
                                     </div>
@@ -121,10 +135,26 @@
                     </div>
 
                 </div>
-                <div class="btn-box">
-                    <a href="">
-                        View All products
-                    </a>
+                <div style="margin-top: 15px" >
+
+                    <c:choose>
+                        <c:when test="${ListP==null || ListP.size()==0}">Not Found</c:when>
+                        <c:otherwise>
+
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item ${page==1||page==null?"disabled":""}"><a class="page-link" href="productcontrol?page=${page-1}" style="color: black">Previous</a></li>
+                                        <c:forEach begin="1" end="${totalPage}" var="i">
+                                        <li class="page-item ${i == page?"active":""}"><a class="page-link" href="productcontrol?page=${i}" style="color: black">${i}</a></li>
+                                        </c:forEach>
+                                    <li class="page-item ${page==totalPage?"disabled":""}"><a class="page-link "  href="productcontrol?page=${page+1}" style="color: black">Next</a></li>
+
+                                </ul>
+                            </nav>
+
+                        </c:otherwise>
+                    </c:choose>
+
                 </div>
             </div>
         </section>
@@ -148,7 +178,7 @@
                                 <a href="">
                                     <i class="fa fa-phone" aria-hidden="true"></i>
                                     <span>
-                                        Call +01 1234567890
+                                        Call +84 0886608682
                                     </span>
                                 </a>
                                 <a href="">

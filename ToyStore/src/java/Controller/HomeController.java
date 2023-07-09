@@ -40,12 +40,14 @@ public class HomeController extends HttpServlet {
         ProductDAO dao = new ProductDAO();
         List<Product> listPro = dao.getProbyCategoryid(1, 2);
         request.setAttribute("ListP", listPro);
+        Product lastPro = dao.getLastProduct();
+        request.setAttribute("lastPro", lastPro);
         HttpSession session = request.getSession();
         Object objacc = session.getAttribute("account");
         if(objacc!=null){
             Account acc = (Account) objacc;
             request.setAttribute("disname", acc.getDisplayname());
-            request.setAttribute("roll", acc.getRoleid());
+            request.setAttribute("role", acc.getRoleid());
         }
         request.getSession().setAttribute("URLHistory", "home");
         request.getRequestDispatcher("home.jsp").forward(request, response);

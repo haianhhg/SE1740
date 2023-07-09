@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
 import model.Account;
 import model.Order;
 import model.Product;
@@ -80,19 +81,18 @@ public class AddProduct extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String name, image, date;
-            int id = Integer.parseInt(request.getParameter("id"));
+            LocalDate today = LocalDate.now();
+            String name, image;
             name = request.getParameter("name");
             double price = Double.parseDouble(request.getParameter("price"));
             String des = request.getParameter("des");
             int quantity = Integer.parseInt(request.getParameter("quantity"));
-            date = request.getParameter("date");
             image = request.getParameter("image");
             int categoryid = Integer.parseInt(request.getParameter("categoryid"));
-            Product x = new Product(id, name, quantity, price, des, image, date, categoryid);
+            Product x = new Product( name, quantity, price, des, image, today.toString(), categoryid);
             ProductDAO u = new ProductDAO();
             u.insert(x);
-            request.getRequestDispatcher("manager").forward(request, response);
+            response.sendRedirect("manager");
         }
     }
 

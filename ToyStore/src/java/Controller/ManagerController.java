@@ -14,12 +14,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import model.Account;
 import model.Product;
 
 /**
  *
- * @author PC 
+ * @author PC
  */
 public class ManagerController extends HttpServlet {
 
@@ -35,22 +36,53 @@ public class ManagerController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             Object objacc = session.getAttribute("account");
+             Account acc = (Account) objacc;
             if (objacc != null) {
-                Account acc = (Account) objacc;
+               
                 if (acc.getRoleid() == 2) {
                     ProductDAO p = new ProductDAO();
                     List<Product> lst = p.getallPro();
                     request.setAttribute("ListP", lst);
-                    request.getRequestDispatcher("admin.jsp").forward(request, response);
-                }  
-                
-            } 
-            response.sendRedirect("login");
+
+                    Product product = p.getOneProbyID(1);
+                    request.setAttribute("product", product);
+                    int page = 1;
+                    int page_size = 9;
+                    //totalpage
+                    ProductDAO dao = new ProductDAO();
+                    int totalProducts = dao.getallProbyID();
+                    int totalPage = totalProducts / page_size;
+                    if (totalProducts % page_size != 0) {
+                        totalPage += 1;
+                    }
+                    request.setAttribute("totalproduct", totalProducts);
+                    request.setAttribute("totalPage", totalPage);
+                    //Setpage
+                    String pag = request.getParameter("page");
+                    if (pag != null) {
+                        page = Integer.parseInt(pag);
+
+                    }
+                    ArrayList<Product> emp1 = dao.paging(page, page_size);
+
+                    request.setAttribute("page", page);
+                    request.getSession().setAttribute("URLHistory", "productcontrol");
+                    request.setAttribute("ListP", emp1);
+                    request.getRequestDispatcher("manager.jsp").forward(request, response);
+                    
+                }
+
+            }
+            if(objacc==null||acc.getRoleid()!=2){
+                request.getRequestDispatcher("login").forward(request, response);
+            }
+            
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

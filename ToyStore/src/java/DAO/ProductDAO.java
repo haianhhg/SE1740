@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,7 +21,7 @@ import model.Product;
 
 /**
  *
- * @author PC 
+ * @author PC
  */
 public class ProductDAO {
 
@@ -186,6 +187,32 @@ public class ProductDAO {
         }
         return null;
     }
+    
+    public Product getLastProduct() {
+
+        try {
+            String sql = "SELECT * FROM product WHERE id=(SELECT max(id) FROM product);";
+            Connection conn = new DBConnect().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getDouble(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8));
+                return product;
+
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public List<Product> getProbyCategoryid(int i, int i0) {
         List<Product> list = new ArrayList<>();
@@ -212,6 +239,8 @@ public class ProductDAO {
         }
         return list;
     }
+    
+    
 
     public boolean update(Product product, int id) {
         int check = 0;
@@ -222,8 +251,8 @@ public class ProductDAO {
                     + "      ,[price] = ?\n"
                     + "      ,[description] = ?\n"
                     + "      ,[imageUrl] = ?\n"
-                    + "      ,[create_date] = ?\n" 
-                    +  "      ,[Categoryid] = ?\n"
+                    + "      ,[create_date] = ?\n"
+                    + "      ,[Categoryid] = ?\n"
                     + " WHERE id=?";
             Connection conn = new DBConnect().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -246,28 +275,27 @@ public class ProductDAO {
     }
 
     public void insert(Product product) {
+        
         try {
-            String sql = "INSERT INTO [ToyShopping].[dbo].[Product]\n"
-                    + "           ([id]\n"
-                    + "           ,[name]\n"
+            String sql = "INSERT INTO [dbo].[Product]\n"
+                    + "           ([name]\n"
                     + "           ,[quantity]\n"
                     + "           ,[price]\n"
                     + "           ,[description]\n"
                     + "           ,[imageUrl]\n"
                     + "           ,[create_date]\n"
-                    + "           ,[Categoryid]\n)"
+                    + "           ,[Categoryid])\n"
                     + "     VALUES\n"
-                    + "           (?,?,?,?,?,?,?,?)";
+                    + "           (?,?,?,?,?,?,?)";
             Connection conn = new DBConnect().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, product.getId());
-            ps.setString(2, product.getName());
-            ps.setInt(3, product.getQuantity());
-            ps.setDouble(4, product.getPrice());
-            ps.setString(5, product.getDescription());
-            ps.setString(6, product.getImageURL());
-            ps.setString(7, product.getCreatedDate());
-            ps.setInt(8, product.getCategoryid());
+            ps.setString(1, product.getName());
+            ps.setInt(2, product.getQuantity());
+            ps.setDouble(3, product.getPrice());
+            ps.setString(4, product.getDescription());
+            ps.setString(5, product.getImageURL());
+            ps.setString(6, product.getCreatedDate());
+            ps.setInt(7, product.getCategoryid());
             ps.executeUpdate();
 
         } catch (Exception ex) {
@@ -275,8 +303,8 @@ public class ProductDAO {
         }
 
     }
-    
-     public ArrayList<Product> paging(int page, int page_size) {
+
+    public ArrayList<Product> paging(int page, int page_size) {
         ArrayList<Product> employee = new ArrayList<>();
         try {
 
@@ -307,13 +335,13 @@ public class ProductDAO {
     }
 
     public static void main(String[] args) {
+        LocalDate today = LocalDate.now();
         ProductDAO dao = new ProductDAO();
 //        List<Product> list = dao.getallPro();
 //        for (Product o : list) {
 //            System.out.println(o);
 //        }
-        Product x = new Product(51,"a", 1, 1,"b","c", "03/27/2002",1);
-         dao.insert(x);
+       dao.insert(new Product("b",1,1,"a","a",today.toString(),2));
     }
 
 }

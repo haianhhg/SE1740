@@ -48,7 +48,7 @@ public class Account {
         return roleid;
     }
 
-    public void setRoleid(int rollid) {
+    public void setRoleid(int roleid) {
         this.roleid = roleid;
     }
 

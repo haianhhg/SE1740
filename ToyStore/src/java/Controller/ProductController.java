@@ -48,7 +48,7 @@ public class ProductController extends HttpServlet {
         Product product = p.getOneProbyID(1);
         request.setAttribute("product", product);
         int page = 1;
-        int page_size = 12;
+        int page_size = 9;
         //totalpage
         ProductDAO dao =new ProductDAO();
         int totalProducts = dao.getallProbyID();
